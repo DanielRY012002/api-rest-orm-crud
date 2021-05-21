@@ -1,7 +1,5 @@
 package pe.edu.upeu.apirest.controller;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import pe.edu.upeu.apirest.entity.Producto;
 import pe.edu.upeu.apirest.service.ProductoService;
-
 @RestController
 public class ProductoController {
 	@Autowired
@@ -36,15 +32,17 @@ public class ProductoController {
 		return "Eliminado";
 	}
 	@PostMapping("/prod/create")
-	public Producto create(@RequestBody Producto prod) {
-		return productoService.create(prod);
+	public String create(@RequestBody Producto prod) {
+		productoService.create(prod);
+		return "Producto Creado";
 	}
-	@PutMapping("/user/update/{id}")
-	public Producto update(@PathVariable Long id,@RequestBody Producto producto) {
+	@PutMapping("/prod/update/{id}")
+	public String update(@PathVariable Long id,@RequestBody Producto producto) {
 		Producto p=productoService.read(id);
 		p.setNombre(producto.getNombre());
 		p.setPrecio(producto.getPrecio());
 		p.setStock(producto.getStock());
-		return productoService.update(p);
+		productoService.update(p);
+		return "Registro a sido Actualizado";
 	}
 }
